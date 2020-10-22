@@ -1,10 +1,11 @@
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SpeakersListComponent } from './speakers-list/speakers-list.component';
-import { SpeakerDetailComponent } from './speaker-detail/speaker-detail.component';
+import { SpeakersListComponent } from './components/speakers-list/speakers-list.component';
+import { SpeakerDetailComponent } from './components/speaker-detail/speaker-detail.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { SpeakerDetailComponent } from './speaker-detail/speaker-detail.componen
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],

@@ -1,0 +1,6 @@
+<p>speakers-list works!</p>
+
+<div *ngFor="let speaker of speakers$ | async">
+  {{speaker.name.first}}
+</div>
+<button type="button" *ngIf="showMore" [disabled]="fetching" (click)="fetchMore()">More</button>
