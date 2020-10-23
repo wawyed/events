@@ -63,4 +63,10 @@ export class SpeakersService {
   public getSpeakers(): Observable<Array<ISpeaker>> {
     return this.speakers$;
   }
+
+  public getSpeaker(id: string): ISpeaker {
+    return this.currentSpeakers.find((speaker: ISpeaker) => {
+      return speaker.login.uuid === id;
+    });
+  }
 }

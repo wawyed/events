@@ -4,8 +4,8 @@ export interface ISpeaker {
     last: string;
   };
   email: string;
-  id: {
-    value: string;
+  login: {
+    uuid: string;
   };
   phone: string;
   picture: {

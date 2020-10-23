@@ -4,7 +4,7 @@
 
 <div class="SpeakersList-listContainer">
   <a *ngFor="let speaker of speakers$ | async | filter:searchValue:filterBy"
-     [routerLink]="['/speakers/detail', speaker.id.value]"
+     [routerLink]="['/speakers/detail', speaker.login.uuid]"
      class="SpeakersList-item">
     <app-speaker-item [appSpeakerItemData]="speaker"></app-speaker-item>
   </a>
