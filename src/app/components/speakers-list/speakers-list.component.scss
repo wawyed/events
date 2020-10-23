@@ -1,0 +1,60 @@
+@import '../../../styles/theme';
+
+.SpeakersList {
+  &-title {
+    font-size: $font-size-large;
+    color: #4c4c4c;
+  }
+
+  &-search {
+    font-size: $font-size-sub-headings;
+    border: 1px solid white;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &-listContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: -10px;
+    padding: 20px 0;
+  }
+
+  &-item {
+    background-color: #f5f5f5;
+    color: black;
+    margin: 10px;
+    padding: 20px;
+    font-size: $font-size-section-header;
+    text-decoration: none;
+  }
+
+  &-itemLabel {
+    font-size: $font-size-regular;
+    margin-bottom: 5px;
+  }
+
+  &-itemValue {
+
+  }
+
+  &-itemDescription {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-more {
+    font-size: $font-size-section-header;
+    display: block;
+    background-color: #fafafa;
+    appearance: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+}

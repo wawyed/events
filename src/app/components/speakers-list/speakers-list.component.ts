@@ -16,6 +16,7 @@ export class SpeakersListComponent implements OnInit {
   public showMore = true;
   public fetching = false;
   private changeDetectorRef: ChangeDetectorRef;
+  public searchValue = '';
 
   constructor(speakersService: SpeakersService, changeDetectorRef: ChangeDetectorRef) {
     this.speakersService = speakersService;
@@ -36,5 +37,13 @@ export class SpeakersListComponent implements OnInit {
     this.fetching = false;
 
     this.changeDetectorRef.markForCheck();
+  }
+
+  public filterBy(searchValue: string, value: ISpeaker): boolean {
+    if (!searchValue) {
+      return true;
+    }
+
+    return value.name.first.toLowerCase().includes(searchValue) || value.name.last.toLowerCase().includes(searchValue);
   }
 }

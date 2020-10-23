@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { concatMap, first, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { concatMap, first, map, shareReplay, startWith, tap } from 'rxjs/operators';
 import { ISpeaker } from './speaker.interface';
 
 interface ISpeakersApiResponse {
@@ -35,14 +35,18 @@ export class SpeakersService {
           { params: { page: this.currentPage.toString(), results: this.pageSize.toString() } }
         ).pipe(
           tap((response: ISpeakersApiResponse) => {
-            this.nextPage = response.info.results === this.pageSize;
+            // The only way I thought to be able to determine if there is more
+            // results is by checking if the result length is different than requested with the current API implementation
+            this.nextPage = response.results.length === this.pageSize;
           }),
           map((response: ISpeakersApiResponse) => {
-          this.currentSpeakers = this.currentSpeakers.concat(response.results);
+            this.currentSpeakers = this.currentSpeakers.concat(response.results);
 
-          return this.currentSpeakers;
-        }));
-      })
+            return this.currentSpeakers;
+          })
+        );
+      }),
+      shareReplay(1)
     );
   }
 

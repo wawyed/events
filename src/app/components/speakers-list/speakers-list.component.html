@@ -1,6 +1,17 @@
-<p>speakers-list works!</p>
+<h3 class="SpeakersList-title">Event speakers</h3>
 
-<div *ngFor="let speaker of speakers$ | async">
-  {{speaker.name.first}}
+<input class="SpeakersList-search" type="search" placeholder="Filter speakers..." [(ngModel)]="searchValue" />
+
+<div class="SpeakersList-listContainer">
+  <a *ngFor="let speaker of speakers$ | async | filter:searchValue:filterBy" class="SpeakersList-item" routerLink="/speakers/detail">
+    <div class="SpeakersList-itemDescription">
+      <span class="SpeakersList-itemLabel">
+        Name
+      </span>
+      <span class="SpeakersList-itemValue">
+        {{speaker.name.first}} {{speaker.name.last}}
+      </span>
+    </div>
+  </a>
 </div>
-<button type="button" *ngIf="showMore" [disabled]="fetching" (click)="fetchMore()">More</button>
+<button (click)="fetchMore()" *ngIf="showMore" class="SpeakersList-more" type="button">More</button>
