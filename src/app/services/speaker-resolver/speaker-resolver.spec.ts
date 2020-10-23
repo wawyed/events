@@ -1,7 +1,20 @@
+import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { SpeakerResolver } from './speaker-resolver';
 
 describe('SpeakerResolver', () => {
-  it('should create an instance', () => {
-    expect(new SpeakerResolver()).toBeTruthy();
+  let service: SpeakerResolver;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ]
+    });
+    service = TestBed.inject(SpeakerResolver);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 });

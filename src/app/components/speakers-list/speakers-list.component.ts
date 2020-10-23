@@ -21,7 +21,7 @@ export class SpeakersListComponent implements OnInit {
     this.speakersService = speakersService;
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.speakers$ = this.speakersService.getSpeakers().pipe(tap(() => {
       this.fetching = false;
       this.showMore = this.speakersService.hasNextPage();

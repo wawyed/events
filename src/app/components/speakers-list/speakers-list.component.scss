@@ -2,8 +2,9 @@
 
 .SpeakersList {
   &-title {
-    font-size: $font-size-large;
+    font-size: $font-size-large-headings;
     color: #4c4c4c;
+    padding: 20px 0;
   }
 
   &-search {

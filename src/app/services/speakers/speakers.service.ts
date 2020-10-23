@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { concatMap, first, map, shareReplay, startWith, tap } from 'rxjs/operators';
+import { concatMap, map, shareReplay, startWith, tap } from 'rxjs/operators';
 import { ISpeaker } from './speaker.interface';
+import { ISpeakersService } from './speakers.service.interface';
 
 interface ISpeakersApiResponse {
   info: { page: number, results: number };
@@ -12,7 +13,7 @@ interface ISpeakersApiResponse {
 @Injectable({
   providedIn: 'root'
 })
-export class SpeakersService {
+export class SpeakersService implements ISpeakersService {
   private readonly httpClient: HttpClient;
   private readonly speakersUrl = 'https://randomuser.me/api/';
   private readonly speakers$: Observable<Array<ISpeaker>>;
