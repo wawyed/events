@@ -1,17 +1,39 @@
-<h3 class="SpeakersList-title">Event speakers</h3>
+<h1 class="SpeakersList-title">Event speakers</h1>
 
-<input class="SpeakersList-search" type="search" placeholder="Filter speakers..." [(ngModel)]="searchValue" />
+<input [(ngModel)]="searchValue" class="SpeakersList-search" placeholder="Filter speakers..." type="search"/>
 
 <div class="SpeakersList-listContainer">
-  <a *ngFor="let speaker of speakers$ | async | filter:searchValue:filterBy" class="SpeakersList-item" routerLink="/speakers/detail">
-    <div class="SpeakersList-itemDescription">
-      <span class="SpeakersList-itemLabel">
-        Name
-      </span>
-      <span class="SpeakersList-itemValue">
-        {{speaker.name.first}} {{speaker.name.last}}
-      </span>
-    </div>
-  </a>
+  <div class="SpeakersList-itemContainer" *ngFor="let speaker of speakers$ | async | filter:searchValue:filterBy">
+    <a class="SpeakersList-item" [routerLink]="['/speakers/detail', speaker.id.value]">
+      <div class="SpeakersList-itemDescription">
+        <img class="SpeakersList-image" [src]="speaker.picture.thumbnail"/>
+      </div>
+      <div class="SpeakersList-itemDescription">
+        <span class="SpeakersList-itemLabel">
+          Name
+        </span>
+          <span class="SpeakersList-itemValue">
+          {{speaker.name.first}} {{speaker.name.last}}
+        </span>
+      </div>
+      <div class="SpeakersList-itemDescription">
+        <span class="SpeakersList-itemLabel">
+          Email
+        </span>
+        <span class="SpeakersList-itemValue">
+          {{speaker.email}}
+        </span>
+      </div>
+      <div class="SpeakersList-itemDescription">
+        <span class="SpeakersList-itemLabel">
+          Phone
+        </span>
+        <span class="SpeakersList-itemValue">
+          {{speaker.phone}}
+        </span>
+      </div>
+    </a>
+  </div>
 </div>
-<button (click)="fetchMore()" *ngIf="showMore" class="SpeakersList-more" type="button">More</button>
+<button (click)="fetchMore()" *ngIf="showMore" [disabled]="fetching" class="SpeakersList-more" type="button">More
+</button>

@@ -17,7 +17,7 @@ export class SpeakersService {
   private readonly speakersUrl = 'https://randomuser.me/api/';
   private readonly speakers$: Observable<Array<ISpeaker>>;
   private readonly pageSize = 20;
-  private readonly speakersSubject: Subject<number> = new Subject();
+  private readonly fetchPageSubject: Subject<number> = new Subject();
 
   private currentSpeakers: Array<ISpeaker> = [];
   private currentPage = 1;
@@ -27,7 +27,7 @@ export class SpeakersService {
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
 
-    this.speakers$ = this.speakersSubject.pipe(
+    this.speakers$ = this.fetchPageSubject.pipe(
       startWith(this.currentPage),
       concatMap(() => {
         return this.httpClient.get<ISpeakersApiResponse>(
@@ -54,12 +54,10 @@ export class SpeakersService {
     return this.nextPage;
   }
 
-  public async getNextPage(): Promise<void> {
+  public getNextPage(): void {
     this.currentPage++;
 
-    this.speakersSubject.next(this.currentPage);
-
-    await this.speakers$.pipe(first()).toPromise();
+    this.fetchPageSubject.next(this.currentPage);
   }
 
   public getSpeakers(): Observable<Array<ISpeaker>> {

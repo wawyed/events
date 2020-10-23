@@ -1,0 +1,8 @@
+@import '../../../styles/theme';
+
+.SpeakerDetail {
+  &-title {
+    font-size: $font-size-large;
+    color: #4c4c4c;
+  }
+}
