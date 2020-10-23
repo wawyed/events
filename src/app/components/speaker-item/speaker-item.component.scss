@@ -7,6 +7,12 @@
   padding: 20px;
   font-size: $font-size-section-header;
   box-sizing: border-box;
+
+  &.is-fullView {
+    .SpeakerItem-image {
+      width: 200px;
+    }
+  }
 }
 
 .SpeakerItem {
