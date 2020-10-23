@@ -69,4 +69,8 @@ export class SpeakersService {
       return speaker.login.uuid === id;
     });
   }
+
+  public hasSpeaker(id: string): boolean {
+    return !!this.getSpeaker(id);
+  }
 }
