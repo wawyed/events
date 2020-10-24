@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { concatMap, map, shareReplay, startWith, tap } from 'rxjs/operators';
+import { concatMap, distinctUntilChanged, map, shareReplay, startWith, tap } from 'rxjs/operators';
 import { ISpeaker } from './speaker.interface';
 import { ISpeakersService } from './speakers.service.interface';
 
-interface ISpeakersApiResponse {
+export interface ISpeakersApiResponse {
   info: { page: number, results: number };
   results: Array<ISpeaker>;
 }
@@ -17,7 +17,7 @@ export class SpeakersService implements ISpeakersService {
   private readonly httpClient: HttpClient;
   private readonly speakersUrl = 'https://randomuser.me/api/';
   private readonly speakers$: Observable<Array<ISpeaker>>;
-  private readonly pageSize = 20;
+  private readonly pageSize;
   private readonly fetchPageSubject: Subject<number> = new Subject();
 
   private currentSpeakers: Array<ISpeaker> = [];
@@ -25,11 +25,13 @@ export class SpeakersService implements ISpeakersService {
   private nextPage = true;
 
 
-  constructor(httpClient: HttpClient) {
+  constructor(httpClient: HttpClient, @Inject('pageLimit') pageSize: number) {
+    this.pageSize = pageSize;
     this.httpClient = httpClient;
 
     this.speakers$ = this.fetchPageSubject.pipe(
       startWith(this.currentPage),
+      distinctUntilChanged(),
       concatMap(() => {
         return this.httpClient.get<ISpeakersApiResponse>(
           this.speakersUrl,
@@ -39,6 +41,7 @@ export class SpeakersService implements ISpeakersService {
             // The only way I thought to be able to determine if there is more
             // results is by checking if the result length is different than requested with the current API implementation
             this.nextPage = response.results.length === this.pageSize;
+            this.currentPage++;
           }),
           map((response: ISpeakersApiResponse) => {
             this.currentSpeakers = this.currentSpeakers.concat(response.results);
@@ -56,8 +59,6 @@ export class SpeakersService implements ISpeakersService {
   }
 
   public getNextPage(): void {
-    this.currentPage++;
-
     this.fetchPageSubject.next(this.currentPage);
   }
 
