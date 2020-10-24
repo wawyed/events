@@ -1,12 +1,14 @@
-import { Component, HostBinding, Input, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnChanges } from '@angular/core';
 import { ISpeaker } from '../../services/speakers/speaker.interface';
+import { ISpeakerItemComponent } from './speaker-item.component.interface';
 
 @Component({
   selector: 'app-speaker-item',
   templateUrl: './speaker-item.component.html',
-  styleUrls: ['./speaker-item.component.scss']
+  styleUrls: ['./speaker-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SpeakerItemComponent implements OnChanges {
+export class SpeakerItemComponent implements ISpeakerItemComponent, OnChanges {
   @Input()
   public appSpeakerItemData: ISpeaker;
 

@@ -43,4 +43,8 @@ export class SpeakersListComponent implements OnInit {
 
     return value.name.first.toLowerCase().includes(searchValue) || value.name.last.toLowerCase().includes(searchValue);
   }
+
+  public trackByFn(index: number, speaker: ISpeaker): string {
+    return speaker.login.uuid;
+  }
 }

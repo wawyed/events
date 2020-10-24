@@ -1,9 +1,13 @@
 <h1 class="SpeakersList-title">Speakers</h1>
 
-<input [(ngModel)]="searchValue" class="SpeakersList-search" placeholder="Filter speakers..." type="search"/>
+<input [(ngModel)]="searchValue"
+       aria-label="Filter speakers"
+       class="SpeakersList-search"
+       placeholder="Filter speakers..."
+       type="search"/>
 
 <div class="SpeakersList-listContainer">
-  <a *ngFor="let speaker of speakers$ | async | filter:searchValue:filterBy"
+  <a *ngFor="let speaker of speakers$ | async | filter:searchValue:filterBy; trackBy: trackByFn"
      [routerLink]="['/speakers/detail', speaker.login.uuid]"
      class="SpeakersList-item">
     <app-speaker-item [appSpeakerItemData]="speaker"></app-speaker-item>
