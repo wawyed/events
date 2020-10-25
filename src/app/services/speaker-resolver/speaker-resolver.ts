@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { ISpeaker } from '../speakers/speaker.interface';
 import { SpeakersService } from '../speakers/speakers.service';
 
@@ -12,8 +12,7 @@ export class SpeakerResolver implements Resolve<ISpeaker> {
   }
 
   resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    route: ActivatedRouteSnapshot
   ): ISpeaker {
     return this.speakersService.getSpeaker(route.paramMap.get('id'));
   }

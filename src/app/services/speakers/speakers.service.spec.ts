@@ -59,7 +59,7 @@ describe('SpeakersService', () => {
     });
 
     it('should make a request to the API with the correct page', () => {
-      httpController.expectOne('https://randomuser.me/api/?page=1&results=2');
+      expect(() => httpController.expectOne('https://randomuser.me/api/?page=1&results=2')).not.toThrow();
     });
 
     describe('when requesting the next page', () => {
@@ -68,7 +68,7 @@ describe('SpeakersService', () => {
       });
 
       it('should not make a new request', () => {
-        httpController.expectOne('https://randomuser.me/api/?page=1&results=2');
+        expect(() => httpController.expectOne('https://randomuser.me/api/?page=1&results=2')).not.toThrow();
       });
     });
 
@@ -87,7 +87,7 @@ describe('SpeakersService', () => {
         });
 
         it('should make a request to the API with the next page', () => {
-          httpController.expectOne('https://randomuser.me/api/?page=2&results=2');
+          expect(() => httpController.expectOne('https://randomuser.me/api/?page=2&results=2')).not.toThrow();
         });
 
         describe('when the response returns with less items than the page size', () => {
